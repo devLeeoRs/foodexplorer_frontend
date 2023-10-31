@@ -2,19 +2,15 @@ import { Container } from "./styles";
 import { BiMinus, BiPlus } from "react-icons/bi";
 import { useState } from "react";
 
-function Stepper() {
-  const [qtd, setQtd] = useState(0);
-
-  function plus(e) {
-    e.stopPropagation();
-    setQtd(qtd + 1);
+function Stepper({ qtd, setQtd }) {
+  function plus() {
+    setQtd((prev) => prev + 1);
   }
-  function minus(e) {
-    e.stopPropagation();
+  function minus() {
     if (qtd === 0) {
       return;
     }
-    setQtd(qtd - 1);
+    setQtd((prev) => prev - 1);
   }
 
   return (

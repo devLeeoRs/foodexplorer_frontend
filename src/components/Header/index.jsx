@@ -10,11 +10,15 @@ import { PiSignOut, PiReceipt } from "react-icons/pi";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
+import { useEffect } from "react";
 
 function Header() {
-  const { signOut, user } = useAuth();
-
+  const { signOut, user, cartQtd, updateCart } = useAuth();
   const admin = user.role === "admin";
+
+  useEffect(() => {
+    updateCart();
+  }, []);
 
   return (
     <HeaderFood>
@@ -45,7 +49,7 @@ function Header() {
           <Link>
             <MyOrderButton>
               <PiReceipt />
-              Pedidos (0)
+              {`Pedidos (${cartQtd || 0}) `}
             </MyOrderButton>
           </Link>
         )}
@@ -57,7 +61,7 @@ function Header() {
         {!admin && (
           <MobileOrderButton>
             <PiReceipt />
-            <span>0</span>
+            <span>{cartQtd || 0}</span>
           </MobileOrderButton>
         )}
       </Container>

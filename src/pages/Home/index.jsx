@@ -5,8 +5,34 @@ import Cart from "../../components/Cart";
 import { Container, Main, Banner } from "./styles";
 import bannerImg from "../../assets/bannerImg.png";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 
 export function Home() {
+  const [meals, setMeals] = useState([]);
+  const [toppings, setToppings] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+
+  useEffect(() => {
+    async function getMeals() {
+      const dish = await api.get("/dishes/refeiçoes");
+      setMeals(dish.data);
+    }
+    async function getDesserts() {
+      const dish = await api.get("/dishes/sobremesas");
+      setToppings(dish.data);
+    }
+
+    async function loadDrinks() {
+      const drinks = await api.get("/dishes/bebidas");
+      setDrinks(drinks.data);
+    }
+
+    getMeals();
+    getDesserts();
+    loadDrinks();
+  }, []);
+
   return (
     <Container>
       <Header />
@@ -19,22 +45,43 @@ export function Home() {
           <img src={bannerImg} alt="" />
         </Banner>
         <CartSlider title="Refeições">
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
+          {meals &&
+            meals.map((dish) => (
+              <Cart
+                key={dish.id}
+                cartId={dish.id}
+                title={dish.name}
+                description={dish.description}
+                price={dish.price}
+                photo={`${api.defaults.baseURL}/uploads/${dish.photo_url}`}
+              />
+            ))}
         </CartSlider>
         <CartSlider title="Sobremesas">
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
-          <Cart />
+          {toppings &&
+            toppings.map((dish) => (
+              <Cart
+                key={dish.id}
+                cartId={dish.id}
+                title={dish.name}
+                description={dish.description}
+                price={dish.price}
+                photo={`${api.defaults.baseURL}/uploads/${dish.photo_url}`}
+              />
+            ))}
+        </CartSlider>
+        <CartSlider title="Bebidas">
+          {drinks &&
+            drinks.map((dish) => (
+              <Cart
+                key={dish.id}
+                cartId={dish.id}
+                title={dish.name}
+                description={dish.description}
+                price={dish.price}
+                photo={`${api.defaults.baseURL}/uploads/${dish.photo_url}`}
+              />
+            ))}
         </CartSlider>
         <Footer />
       </Main>

@@ -5,9 +5,34 @@ import AddButton from "../../components/AddButton";
 import Stepper from "../../components/Stepper";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import dishImg from "../../assets/dish1.png";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useParams } from "react-router-dom";
 
 export function Dish({ admin = false }) {
+  const params = useParams();
+  const [dish, setDish] = useState(null);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    async function loadDrinks() {
+      const { data } = await api.get(`dishes/dish/${params.id}`);
+
+      setName(data.name);
+      setDescription(data.description);
+      setPrice(data.price);
+      setIngredients(data.ingredients);
+      setImage(data.photo_url);
+    }
+
+    loadDrinks();
+  }, []);
+
   return (
     <Body>
       <Header />
@@ -18,19 +43,17 @@ export function Dish({ admin = false }) {
             Voltar
           </BackButton>
           <div className="dish-area">
-            <img src={dishImg} alt="" />
+            <img src={`${api.defaults.baseURL}/uploads/${image}`} alt="" />
             <div className="dish-info">
-              <h2>Salada Ravanello</h2>
-              <p>
-                Rabanetes, folhas verdes e molho agridoce salpicados com
-                gergelim. O pão naan dá um toque especial.
-              </p>
+              <h2>{name}</h2>
+              <p>{description}</p>
               <div className="ingredients">
-                <IngredientTag>Batata</IngredientTag>
-                <IngredientTag>Batata</IngredientTag>
-                <IngredientTag>Batata</IngredientTag>
-                <IngredientTag>Batata</IngredientTag>
-                <IngredientTag>Batata</IngredientTag>
+                {ingredients &&
+                  ingredients.map((ingredient, index) => (
+                    <IngredientTag key={String(index)}>
+                      {ingredient}
+                    </IngredientTag>
+                  ))}
               </div>
               <div className="controls">
                 {admin ? (
@@ -38,7 +61,7 @@ export function Dish({ admin = false }) {
                 ) : (
                   <>
                     <Stepper />
-                    <AddButton title="incluir ∙ R$ 25,00" />
+                    <AddButton title={`incluir ∙ R$ ${price}`} />
                   </>
                 )}
               </div>

@@ -7,6 +7,13 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const alertNotification = useAlert();
   const [data, setData] = useState({});
+  const [cartQtd, setCartQtd] = useState(0);
+
+  function updateCart() {
+    const cartOrder =
+      JSON.parse(localStorage.getItem("@food-explorer:cart")) || [];
+    setCartQtd(cartOrder.length);
+  }
 
   async function signIn({ email, password }) {
     try {
@@ -41,7 +48,9 @@ function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
+    <AuthContext.Provider
+      value={{ signIn, signOut, updateCart, cartQtd, user: data.user }}
+    >
       {children}
     </AuthContext.Provider>
   );

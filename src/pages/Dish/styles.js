@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Body = styled.body`
+export const Body = styled.div`
   display: grid;
   height: 100vh;
   grid-template-rows: 10.4rem auto 7.7rem;

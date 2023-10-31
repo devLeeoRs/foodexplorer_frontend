@@ -42,7 +42,7 @@ export const Form = styled.form`
   grid-template-areas:
     "file name category category"
     "ingredient ingredient ingredient price"
-    "description description description description"
+    "description description photo photo"
     "button button button button ";
   gap: 3.2rem;
   color: ${({ theme }) => theme.COLORS.LIGHT_300};
@@ -123,7 +123,23 @@ export const Form = styled.form`
     }
 
     .input {
-      height: auto;
+      height: 20rem;
+    }
+  }
+
+  .photo-preview {
+    grid-area: photo;
+
+    .input {
+      height: 20rem;
+      justify-content: center;
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 99px;
+      }
     }
   }
 
@@ -132,15 +148,17 @@ export const Form = styled.form`
     display: flex;
     justify-content: end;
     gap: 3.2rem;
+    margin-top: 2rem;
   }
 
   @media (max-width: 1170px) {
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
       "file name category "
-      "ingredient ingredient  price"
-      "description description  description"
-      "button button  button ";
+      "ingredient ingredient price"
+      "description description description"
+      "photo photo photo"
+      "button button button ";
   }
 
   @media (max-width: 768px) {

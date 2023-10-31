@@ -14,15 +14,16 @@ export const Main = styled.main`
   padding: 2.4rem 1rem;
   grid-area: Main;
   display: flex;
-  max-width: 112rem;
-  width: 100%;
+
   height: 100%;
-  margin: auto;
+  overflow-y: auto;
 `;
 
 export const Container = styled.div`
   display: flex;
+  max-width: 112rem;
   width: 100%;
+  margin: auto;
   flex-direction: column;
   .title h2 {
     padding: 2.4rem 0 3.2rem 0;
@@ -37,11 +38,11 @@ export const Form = styled.form`
   height: 100%;
   display: grid;
   grid-template-columns: 22.9rem 45.3rem 8rem 24.1rem;
-  grid-template-rows: 8.3rem 8.3rem auto;
+  grid-template-rows: 8.3rem auto auto;
   grid-template-areas:
     "file name category category"
     "ingredient ingredient ingredient price"
-    "description description description description"
+    "description description photo photo"
     "button button button button ";
   gap: 3.2rem;
   color: ${({ theme }) => theme.COLORS.LIGHT_300};
@@ -99,6 +100,12 @@ export const Form = styled.form`
     grid-area: ingredient;
 
     .input {
+      display: flex;
+      height: auto;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0.2rem;
+      width: 100%;
       gap: 0.8rem;
     }
   }
@@ -107,6 +114,7 @@ export const Form = styled.form`
     grid-area: description;
 
     textarea {
+      outline: none;
       background: transparent;
       border: none;
       resize: none;
@@ -115,7 +123,23 @@ export const Form = styled.form`
     }
 
     .input {
-      height: auto;
+      height: 20rem;
+    }
+  }
+
+  .photo-preview {
+    grid-area: photo;
+
+    .input {
+      height: 20rem;
+      justify-content: center;
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 99px;
+      }
     }
   }
 
@@ -130,9 +154,10 @@ export const Form = styled.form`
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
       "file name category "
-      "ingredient ingredient  price"
-      "description description  description"
-      "button button  button ";
+      "ingredient ingredient price"
+      "description description description"
+      "photo photo photo"
+      "button button button ";
   }
 
   @media (max-width: 768px) {

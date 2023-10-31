@@ -32,12 +32,16 @@ export const Container = styled.div`
   }
 
   h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     font-family: "Poppins", sans-serif;
     font-size: clamp(1.4rem, 0.985vw + 0.981rem, 2.4rem);
     font-weight: 700;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     text-align: center;
+    cursor: pointer;
   }
 
   p {
@@ -45,6 +49,8 @@ export const Container = styled.div`
     font-size: 1.4rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_400};
     text-align: center;
+    max-width: 25.6rem;
+    height: 2rem;
   }
 
   span {

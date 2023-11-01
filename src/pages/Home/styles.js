@@ -11,7 +11,7 @@ export const Container = styled.main`
 `;
 
 export const Main = styled.main`
-  grid-area: "Main";
+  grid-area: Main;
   overflow-x: hidden;
   overflow-y: auto;
   height: 100%;

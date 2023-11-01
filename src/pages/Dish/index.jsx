@@ -7,17 +7,24 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useCartUpdate } from "../../hooks/CartUpdate";
 
 export function Dish({ admin = false }) {
+  const navigate = useNavigate();
   const params = useParams();
-  const [dish, setDish] = useState(null);
+  const addCart = useCartUpdate();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [image, setImage] = useState("");
+  const [qtd, setQtd] = useState(1);
+
+  function handleAddCart() {
+    addCart(qtd, params.id, name, price);
+  }
 
   useEffect(() => {
     async function loadDrinks() {
@@ -31,19 +38,26 @@ export function Dish({ admin = false }) {
     }
 
     loadDrinks();
-  }, []);
+  }, [params]);
+
+  function handleToBack() {
+    navigate(-1);
+  }
 
   return (
     <Body>
       <Header />
       <Main>
         <Container>
-          <BackButton>
+          <BackButton onClick={handleToBack}>
             <PiCaretLeftBold />
             Voltar
           </BackButton>
           <div className="dish-area">
-            <img src={`${api.defaults.baseURL}/uploads/${image}`} alt="" />
+            <img
+              src={`${api.defaults.baseURL}/uploads/${image}` || ""}
+              alt=""
+            />
             <div className="dish-info">
               <h2>{name}</h2>
               <p>{description}</p>
@@ -60,8 +74,11 @@ export function Dish({ admin = false }) {
                   <AddButton title="Editar prato" />
                 ) : (
                   <>
-                    <Stepper />
-                    <AddButton title={`incluir ∙ R$ ${price}`} />
+                    <Stepper qtd={qtd} setQtd={setQtd} />
+                    <AddButton
+                      onClick={handleAddCart}
+                      title={`incluir ∙ R$ ${price}`}
+                    />
                   </>
                 )}
               </div>

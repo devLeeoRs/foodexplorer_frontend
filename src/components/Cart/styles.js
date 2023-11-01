@@ -15,16 +15,6 @@ export const Container = styled.div`
 
   background-color: ${({ theme }) => theme.COLORS.DARK_200};
 
-  .icon {
-    position: absolute;
-    top: 1.6rem;
-    right: 1.8rem;
-    width: 2.4rem;
-    height: 2.4rem;
-    color: ${({ theme }) => theme.COLORS.LIGHT_300};
-    cursor: pointer;
-  }
-
   img {
     width: 17.6rem;
     height: 17.6rem;
@@ -51,9 +41,10 @@ export const Container = styled.div`
     text-align: center;
     max-width: 25.6rem;
     height: 2rem;
+    margin-bottom: 2rem;
   }
 
-  span {
+  .price {
     font-size: clamp(1.6rem, 1.576vw + 0.93rem, 3.2rem);
     font-weight: 400;
     color: ${({ theme }) => theme.COLORS.CAKE_200};
@@ -78,6 +69,34 @@ export const Container = styled.div`
     }
     .controls {
       flex-direction: column;
+    }
+  }
+`;
+
+export const Icon = styled.div`
+  position: absolute;
+  top: 1.6rem;
+  right: 1.8rem;
+  cursor: pointer;
+
+  svg {
+    transition: fill 0.3s, stroke 0.3s;
+    width: 2.4rem;
+    height: 2.4rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_300};
+    fill: ${({ $favorite }) => ($favorite ? "red" : "transparent")};
+    stroke: ${({ $favorite }) => ($favorite ? "transparent" : "#E1E1E6")};
+    stroke-width: 80;
+    animation: ${({ $favorite }) => $favorite && "beatAnimation 1s infinite"};
+  }
+
+  @keyframes beatAnimation {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
     }
   }
 `;

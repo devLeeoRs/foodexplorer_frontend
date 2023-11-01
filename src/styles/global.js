@@ -31,6 +31,7 @@ export default createGlobalStyle`
 }
 
 body {
+  overflow: hidden;
   font-family: 'Roboto',sans-serif;
   font-size: clamp(1.2rem, 0.394vw + 1.033rem, 1.6rem);
   background: ${({ theme }) => theme.COLORS.DARK_400}
@@ -49,5 +50,9 @@ a{
     filter: brightness(0.9);
   }
 
-
+  @media(max-width:425px) {
+    ::-webkit-scrollbar {
+  width: 0px;
+}
+  }
 `;

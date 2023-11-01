@@ -19,6 +19,8 @@ export const Container = styled.div`
 
   .menuBurger {
     display: none;
+    background: none;
+    border: none;
   }
 
   .logo {
@@ -51,40 +53,6 @@ export const Container = styled.div`
     height: 3.2rem;
   }
 
-  .input {
-    width: min(30%, 58rem);
-    background: ${({ theme }) => theme.COLORS.DARK_900};
-    height: 4.8rem;
-    border-radius: 0.5rem;
-    padding: 1.2rem 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.4rem;
-
-    > input {
-      width: min(50%, 35rem);
-      background: none;
-      border: none;
-      outline: none;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      font-size: 1.6rem;
-      font-weight: 400;
-    }
-
-    svg {
-      width: 2.4rem;
-      height: 2.4rem;
-    }
-
-    .singOut {
-      color: #fff;
-      width: 1.4rem;
-      height: 1.4rem;
-      cursor: pointer;
-    }
-  }
-
   @media (max-width: 768px) {
     justify-content: space-between;
     padding: 0 2.8rem;
@@ -101,10 +69,6 @@ export const Container = styled.div`
       flex-direction: row;
       align-items: center;
       gap: 0.8rem;
-    }
-
-    .input {
-      display: none;
     }
 
     .singOut {

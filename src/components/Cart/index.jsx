@@ -1,5 +1,5 @@
-import { Container } from "./styles";
-import { AiOutlineHeart, AiOutlineEye } from "react-icons/ai";
+import { Container, Icon } from "./styles";
+import { AiOutlineHeart, AiOutlineEye, AiFillHeart } from "react-icons/ai";
 import { PiPencilSimpleLight } from "react-icons/pi";
 import Stepper from "../Stepper";
 import AddButton from "../AddButton";
@@ -8,42 +8,43 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useAlert } from "../../hooks/alertNotification";
-import Header from "../Header";
+import { useCartUpdate } from "../../hooks/CartUpdate";
 
 function Cart({ title, description, price, photo, cartId }) {
-  const { user, updateCart } = useAuth();
+  const { user } = useAuth();
   const admin = user.role === "admin";
   const navigate = useNavigate();
-  const alertNotification = useAlert();
+  const addCart = useCartUpdate();
 
-  const [qtd, setQtd] = useState(0);
+  const [qtd, setQtd] = useState(1);
+  const [favorite, setFavorite] = useState(false);
+  const [listFavorite, setListFavorite] = useState("");
 
-  function handleAddCart() {
-    const convertNumber = parseFloat(price.replace(",", "."));
-    const calculate = convertNumber * qtd;
-
-    const order = {
+  function handleFavorite() {
+    const fav = {
       sku: cartId,
-      quantity: qtd,
       title,
-      totalPrice: calculate,
     };
 
-    if (order.quantity === 0) {
-      return alertNotification(`Adicione uma quantidade`, "error");
+    const favorites =
+      JSON.parse(localStorage.getItem("@food-explorer:favorite")) || [];
+
+    const checkFavExist = favorites.findIndex((item) => item.sku === fav.sku);
+
+    if (checkFavExist > -1) {
+      // Se já estiver nos favoritos, remove
+      favorites.splice(checkFavExist, 1);
+    } else {
+      // Se não estiver nos favoritos, adiciona
+      favorites.push(fav);
     }
 
-    let orders = JSON.parse(localStorage.getItem("@food-explorer:cart")) || [];
-    const checkOrderExist = orders.findIndex((item) => item.sku === order.sku);
-    if (checkOrderExist > -1) {
-      orders.splice(checkOrderExist, 1);
-      alertNotification(`Carrinho Atualizado`, "success");
-    } else {
-      alertNotification(`${title} adicionado ao carrinho 🛒`, "success");
-    }
-    orders.push(order);
-    localStorage.setItem("@food-explorer:cart", JSON.stringify(orders));
-    updateCart();
+    localStorage.setItem("@food-explorer:favorite", JSON.stringify(favorites));
+    setFavorite(!favorite);
+  }
+
+  function handleAddCart() {
+    addCart(qtd, cartId, title, price);
   }
 
   function handleEditLink() {
@@ -58,17 +59,17 @@ function Cart({ title, description, price, photo, cartId }) {
       {admin ? (
         <PiPencilSimpleLight onClick={handleEditLink} className="icon" />
       ) : (
-        <AiOutlineHeart className="icon" />
+        <Icon $favorite={favorite}>
+          <AiFillHeart className="icon" onClick={handleFavorite} />
+        </Icon>
       )}
-
-      <AiOutlineEye className="view-icon" />
 
       <img itemProp="image" src={photo} alt="" />
       <h3 onClick={viewDish} itemProp="name">
         {title.slice(0, 15)} <MdKeyboardArrowRight />
       </h3>
       <p itemProp="description">{description.slice(0, 65).padEnd("...")} ...</p>
-      <span itemProp="price">{`R$ ${price}`}</span>
+      <span className="price" itemProp="price">{`R$ ${price}`}</span>
 
       {!admin && (
         <div className="controls">

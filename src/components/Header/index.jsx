@@ -5,27 +5,41 @@ import {
   HeaderFood,
 } from "./styles";
 import iconLogo from "../../assets/logoicon.svg";
-import { BsSearch } from "react-icons/bs";
 import { PiSignOut, PiReceipt } from "react-icons/pi";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { SearchInput } from "../SearchInput";
+import { BurgerMenu } from "../BurgerMenu";
+import { useState } from "react";
 
 function Header() {
   const { signOut, user, cartQtd, updateCart } = useAuth();
   const admin = user.role === "admin";
+  const navigate = useNavigate;
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleToggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   useEffect(() => {
     updateCart();
   }, []);
 
+  function handleGoToLink(link) {
+    navigate(link);
+  }
+
   return (
     <HeaderFood>
+      <BurgerMenu open={menuOpen} onclick={handleToggleMenu} />
       <Container>
-        <a className="menuBurger" href="">
+        <button onClick={handleToggleMenu} className="menuBurger">
           <HiOutlineMenuAlt3 />
-        </a>
+        </button>
         <Link to="/">
           <div className="logo">
             <img src={iconLogo} alt="" />
@@ -36,22 +50,25 @@ function Header() {
           </div>
         </Link>
 
-        <div className="input">
-          <BsSearch />
-          <input type="text" placeholder="Busque por pratos ou ingredientes" />
-        </div>
+        <SearchInput />
 
         {admin ? (
-          <Link to="/create-dish">
-            <MyOrderButton>Novo Prato</MyOrderButton>
-          </Link>
+          <MyOrderButton
+            onClick={(e) => {
+              handleGoToLink("/newDish");
+            }}
+          >
+            Novo Prato
+          </MyOrderButton>
         ) : (
-          <Link>
-            <MyOrderButton>
-              <PiReceipt />
-              {`Pedidos (${cartQtd || 0}) `}
-            </MyOrderButton>
-          </Link>
+          <MyOrderButton
+            onClick={(e) => {
+              handleGoToLink("/dish/45");
+            }}
+          >
+            <PiReceipt />
+            {`Pedidos (${cartQtd || 0}) `}
+          </MyOrderButton>
         )}
 
         <a onClick={signOut} className="singOut" href="">

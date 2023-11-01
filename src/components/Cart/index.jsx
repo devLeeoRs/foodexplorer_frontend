@@ -18,7 +18,6 @@ function Cart({ title, description, price, photo, cartId }) {
 
   const [qtd, setQtd] = useState(1);
   const [favorite, setFavorite] = useState(false);
-  const [listFavorite, setListFavorite] = useState("");
 
   function handleFavorite() {
     const fav = {
@@ -57,7 +56,9 @@ function Cart({ title, description, price, photo, cartId }) {
   return (
     <Container>
       {admin ? (
-        <PiPencilSimpleLight onClick={handleEditLink} className="icon" />
+        <Icon>
+          <PiPencilSimpleLight onClick={handleEditLink} className="icon" />
+        </Icon>
       ) : (
         <Icon $favorite={favorite}>
           <AiFillHeart className="icon" onClick={handleFavorite} />

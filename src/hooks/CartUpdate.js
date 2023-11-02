@@ -5,7 +5,7 @@ export function useCartUpdate() {
   const alertNotification = useAlert();
   const { updateCart } = useAuth();
 
-  function addCart(qtd, cartId, title, price) {
+  function addCart(qtd, cartId, title, price, image) {
     const convertNumber = parseFloat(price.replace(",", "."));
     const calculate = convertNumber * qtd;
 
@@ -14,6 +14,7 @@ export function useCartUpdate() {
       quantity: qtd,
       title,
       totalPrice: calculate,
+      image,
     };
 
     if (order.quantity === 0) {

@@ -9,6 +9,7 @@ import { useState, useRef } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { useAlert } from "../../hooks/alertNotification";
 import { useCartUpdate } from "../../hooks/CartUpdate";
+import { api } from "../../services/api";
 
 function Cart({ title, description, price, photo, cartId }) {
   const { user } = useAuth();
@@ -23,6 +24,7 @@ function Cart({ title, description, price, photo, cartId }) {
     const fav = {
       sku: cartId,
       title,
+      image: photo,
     };
 
     const favorites =
@@ -31,10 +33,8 @@ function Cart({ title, description, price, photo, cartId }) {
     const checkFavExist = favorites.findIndex((item) => item.sku === fav.sku);
 
     if (checkFavExist > -1) {
-      // Se já estiver nos favoritos, remove
       favorites.splice(checkFavExist, 1);
     } else {
-      // Se não estiver nos favoritos, adiciona
       favorites.push(fav);
     }
 
@@ -43,7 +43,7 @@ function Cart({ title, description, price, photo, cartId }) {
   }
 
   function handleAddCart() {
-    addCart(qtd, cartId, title, price);
+    addCart(qtd, cartId, title, price, photo);
   }
 
   function handleEditLink() {

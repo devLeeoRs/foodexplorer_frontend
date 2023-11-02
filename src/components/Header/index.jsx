@@ -81,7 +81,7 @@ function Header() {
                 </Link>
               ))}
           </div>
-
+          <button>Meus Favoritos</button>
           <button>Sair</button>
         </div>
 

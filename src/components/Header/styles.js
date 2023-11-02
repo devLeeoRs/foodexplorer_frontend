@@ -170,6 +170,7 @@ export const MenuOpen = styled.aside`
       border-radius: 5px;
       background: ${({ theme }) => theme.COLORS.DARK_900};
       color: ${({ theme }) => theme.COLORS.LIGHT_100};
+      margin-bottom: 3.6rem;
 
       svg {
         width: 2.4rem;
@@ -196,7 +197,6 @@ export const MenuOpen = styled.aside`
       border-bottom: 1px solid var(--dark-dark-1000, #192227);
       line-height: 140%;
       padding: 1rem;
-      margin-top: 3.6rem;
       background: none;
       border: none;
     }

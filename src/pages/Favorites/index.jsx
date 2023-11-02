@@ -1,11 +1,6 @@
 import { Body, Container, Main, Title } from "./styles";
-import { PiCaretLeftBold } from "react-icons/pi";
-import IngredientTag from "../../components/IngredientTag";
-import AddButton from "../../components/AddButton";
-import Stepper from "../../components/Stepper";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export function Favorite({ admin = false }) {
@@ -21,7 +16,6 @@ export function Favorite({ admin = false }) {
     const indexFavorite = favorite.findIndex((item) => item.sku === id);
 
     if (indexFavorite > -1) {
-      // Se já estiver nos favoritos, remove
       favorite.splice(indexFavorite, 1);
     }
     localStorage.setItem("@food-explorer:favorite", JSON.stringify(favorite));

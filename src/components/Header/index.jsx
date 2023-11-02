@@ -20,7 +20,7 @@ import { api } from "../../services/api";
 function Header() {
   const { signOut, user, cartQtd, updateCart } = useAuth();
   const admin = user.role === "admin";
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -122,7 +122,7 @@ function Header() {
         ) : (
           <MyOrderButton
             onClick={(e) => {
-              handleGoToLink("/dish/45");
+              handleGoToLink("/checkout");
             }}
           >
             <PiReceipt />

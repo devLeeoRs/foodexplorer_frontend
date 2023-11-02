@@ -13,7 +13,7 @@ export function useCartUpdate() {
       sku: cartId,
       quantity: qtd,
       title,
-      totalPrice: calculate,
+      totalPrice: calculate.toFixed(2),
       image,
     };
 

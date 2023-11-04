@@ -66,6 +66,11 @@ export const ResultSearch = styled.div`
     font-family: "Poppins", sans-serif;
     cursor: pointer;
 
+    .nameDish {
+      display: flex;
+      font-size: 1.6rem;
+    }
+
     span {
       font-weight: 500;
     }

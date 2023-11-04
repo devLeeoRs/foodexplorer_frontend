@@ -49,6 +49,7 @@ export const Container = styled.div`
       align-items: center;
       padding: 1.6rem 0;
       gap: 1.3rem;
+
       img {
         width: 7.2rem;
         height: 7.2rem;
@@ -85,12 +86,26 @@ export const Container = styled.div`
       font-weight: 500;
       color: ${({ theme }) => theme.COLORS.LIGHT_400};
     }
+
+    @media (max-width: 425px) {
+      span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .orders {
+        height: auto;
+        overflow-y: initial;
+      }
+    }
   }
 
   .payment {
     margin-top: 3.4rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     font-family: "Poppins", sans-serif;
+    width: 53rem;
 
     h2 {
       font-size: 3.2rem;
@@ -99,7 +114,8 @@ export const Container = styled.div`
     .payment-container {
       margin-top: 3.2rem;
       height: 44.5rem;
-      width: 53rem;
+      max-width: 53rem;
+      width: 100%;
     }
 
     .paymentOptions {
@@ -152,7 +168,12 @@ export const Container = styled.div`
     .payment-pix {
       display: flex;
       justify-content: center;
-      padding: 4.7rem 13rem;
+      padding: clamp(1rem, 4.111vw - 0.316rem, 4.7rem);
+
+      img {
+        width: clamp(16.7rem, 9.222vw + 13.749rem, 25rem);
+        height: clamp(16.7rem, 9.222vw + 13.749rem, 25rem);
+      }
     }
     .payment-credit {
       display: none;
@@ -163,6 +184,10 @@ export const Container = styled.div`
       .divide {
         display: flex;
         gap: 1.7rem;
+      }
+
+      button {
+        display: flex;
       }
 
       .input-label {
@@ -188,28 +213,9 @@ export const Container = styled.div`
           }
         }
       }
-    }
 
-    button {
-      width: 100%;
-      display: flex;
-      padding: 12px 32px;
-      justify-content: center;
-      align-items: center;
-      gap: 0.8rem;
-      border-radius: 5px;
-      border: none;
-      background: ${({ theme }) => theme.COLORS.TOMATO_100};
-      font-family: Poppins;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 500;
-      color: ${({ theme }) => theme.COLORS.LIGHT_100};
-      text-align: center;
-
-      svg {
-        width: 3.2rem;
-        height: 3.2rem;
+      @media (max-width: 768px) {
+        padding: 2rem;
       }
     }
 
@@ -230,21 +236,49 @@ export const Container = styled.div`
   }
 
   @media (max-width: 768px) {
+    justify-content: center;
+
     .payment {
-      display: flex;
+      display: none;
       flex-direction: column;
     }
-    .payment-container {
-      width: initial;
-    }
-    .payment-pix {
-      padding: clamp(1rem, 4.111vw - 0.316rem, 4.7rem);
-    }
     .myOrder {
-      display: none;
+      display: block;
     }
     .myOrder {
       width: 100%;
     }
+  }
+
+  .flex {
+    display: flex;
+  }
+`;
+
+export const ButtonRed = styled.button`
+  width: 100%;
+  display: none;
+  padding: 12px 32px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  background: ${({ theme }) => theme.COLORS.TOMATO_100};
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  text-align: center;
+
+  svg {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 3rem;
+    display: flex;
   }
 `;

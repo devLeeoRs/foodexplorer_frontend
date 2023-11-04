@@ -6,9 +6,9 @@ import {
   MenuOpen,
 } from "./styles";
 import iconLogo from "../../assets/logoicon.svg";
-import { PiSignOut, PiReceipt } from "react-icons/pi";
+import { PiSignOut, PiReceipt, PiClipboardText } from "react-icons/pi";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
-import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useEffect, useRef } from "react";
@@ -31,6 +31,10 @@ function Header() {
   };
   function handleGoToLink(link) {
     navigate(link);
+  }
+  function handleSignOut() {
+    navigate("/");
+    signOut();
   }
 
   useEffect(() => {
@@ -81,7 +85,9 @@ function Header() {
                 </Link>
               ))}
           </div>
+          <button>Historico de pedidos</button>
           <button>Meus Favoritos</button>
+          <button>Perfil</button>
           <button>Sair</button>
         </div>
 
@@ -114,7 +120,7 @@ function Header() {
         {admin ? (
           <MyOrderButton
             onClick={(e) => {
-              handleGoToLink("/newDish");
+              handleGoToLink("/create-dish");
             }}
           >
             Novo Prato
@@ -130,9 +136,20 @@ function Header() {
           </MyOrderButton>
         )}
 
-        <a onClick={signOut} className="singOut" href="">
-          <PiSignOut />
-        </a>
+        <div className="buttons-header">
+          <div onClick={handleSignOut} className="singOut">
+            <PiSignOut />
+          </div>
+          <div
+            onClick={(e) => handleGoToLink("/profile")}
+            className="userButton"
+          >
+            <AiOutlineUser />
+          </div>
+          <div onClick={(e) => handleGoToLink("/pedidos")}>
+            <PiClipboardText />
+          </div>
+        </div>
 
         {!admin && (
           <MobileOrderButton $favorite={menuOpen}>

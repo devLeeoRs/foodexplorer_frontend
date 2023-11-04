@@ -2,6 +2,7 @@ import { Body, Container, Main, Title } from "./styles";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function Favorite({ admin = false }) {
   const navigate = useNavigate();

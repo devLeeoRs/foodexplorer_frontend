@@ -60,6 +60,11 @@ export const Container = styled.div`
     display: none;
   }
 
+  .buttons-header {
+    display: flex;
+    gap: 4rem;
+  }
+
   @media (max-width: 768px) {
     height: 11.4rem;
     justify-content: ${({ $favorite }) =>
@@ -72,6 +77,11 @@ export const Container = styled.div`
         width: 2.4rem;
         height: 2.4rem;
       }
+    }
+
+    .buttons-header {
+      display: none;
+      gap: 4rem;
     }
 
     .title {

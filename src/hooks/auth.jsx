@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAlert } from "./alertNotification";
 import { api } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({});
 
@@ -13,6 +14,32 @@ function AuthProvider({ children }) {
     const cartOrder =
       JSON.parse(localStorage.getItem("@food-explorer:cart")) || [];
     setCartQtd(cartOrder.length);
+  }
+
+  async function updateProfile({ user, avatarFile }) {
+    if (avatarFile) {
+      const fileUploadForm = new FormData();
+      fileUploadForm.append("upload", avatarFile);
+
+      const response = await api.patch("/upload/userAvatar", fileUploadForm);
+      console.log(response);
+      user.avatar = response.data.avatar_url;
+    }
+
+    try {
+      await api.put("/users", user);
+      localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
+
+      setData({ user });
+
+      alertNotification("Perfil atualizado", "success");
+    } catch (error) {
+      if (error.response) {
+        alertNotification(error.response.data.message, "error");
+      } else {
+        alertNotification("Não foi possivel atualizar o perfil", "error");
+      }
+    }
   }
 
   async function signIn({ email, password }) {
@@ -49,7 +76,14 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, signOut, updateCart, cartQtd, user: data.user }}
+      value={{
+        signIn,
+        signOut,
+        updateCart,
+        updateProfile,
+        cartQtd,
+        user: data.user,
+      }}
     >
       {children}
     </AuthContext.Provider>

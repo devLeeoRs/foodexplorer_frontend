@@ -1,5 +1,5 @@
-import { Body, Container, Main } from "./styles";
-import { FiClock } from "react-icons/fi";
+import { Body, Container, Main, ButtonRed } from "./styles";
+import { GoClock } from "react-icons/go";
 import { PiCaretLeftBold } from "react-icons/pi";
 import { FaPix } from "react-icons/fa6";
 import { BsCreditCard, BsCheckCircle } from "react-icons/bs";
@@ -10,12 +10,15 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import pixqrcode from "../../assets/pixqrcode.svg";
 import { useAlert } from "../../hooks/alertNotification";
+import { api } from "../../services/api";
 
 export function Payment({ admin = false }) {
   const navigate = useNavigate();
   const payPix = useRef();
   const payCredit = useRef();
   const pendingPay = useRef();
+  const payment = useRef();
+  const myOrder = useRef();
   const alertNotification = useAlert();
 
   function handleToBack() {
@@ -24,6 +27,7 @@ export function Payment({ admin = false }) {
 
   const [orders, setOrders] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
+  const [orderDetails, setOrderDetails] = useState("");
   const [cartNumber, setCartNumber] = useState("");
   const [validity, setValidity] = useState("");
   const [securityCode, setSecurityCode] = useState("");
@@ -36,6 +40,29 @@ export function Payment({ admin = false }) {
     } else {
       payCredit.current.style.display = "flex";
       payPix.current.style.display = "none";
+    }
+  }
+
+  async function registerOrder() {
+    await api.post("/orders", {
+      details: orderDetails,
+      status: "processando",
+      payment: "credito",
+      description: "sem cebola ",
+      address: "rua osvaldo aranha 3800",
+      descriptionDelivery: "Casa amarela com preto ",
+      statusDelivery: "aguardando",
+      total_price: totalOrder,
+    });
+  }
+
+  function handleAdvanceStage(stage) {
+    if (stage === "progress") {
+      myOrder.current.style.display = "none";
+      payment.current.style.display = "flex";
+    } else if (stage === "back") {
+      myOrder.current.style.display = "block";
+      payment.current.style.display = "none";
     }
   }
 
@@ -77,9 +104,9 @@ export function Payment({ admin = false }) {
       alertNotification("Pagamento realizado", "success");
     }, "5000");
     setTimeout(() => {
+      registerOrder();
       alertNotification("Pedido enviado ", "success");
       navigate("/");
-
       localStorage.removeItem("@food-explorer:cart");
     }, "10000");
   }
@@ -88,6 +115,12 @@ export function Payment({ admin = false }) {
     function getOrders() {
       const data =
         JSON.parse(localStorage.getItem("@food-explorer:cart")) || [];
+      const orderDetails = data.map((dish) => {
+        const order = `${dish.quantity}x ${dish.title}`;
+        return order;
+      });
+
+      setOrderDetails(orderDetails.join(", "));
       setOrders(data);
       generateTotalOrder(data);
     }
@@ -100,7 +133,7 @@ export function Payment({ admin = false }) {
       <Header />
       <Main>
         <Container>
-          <div className="myOrder">
+          <div ref={myOrder} className="myOrder">
             <h2 onClick={handleToBack}>
               <PiCaretLeftBold />
               Meu Pedido
@@ -122,9 +155,13 @@ export function Payment({ admin = false }) {
                   </div>
                 ))}
             </div>
+
             <h4>Total: R$ {totalOrder}</h4>
+            <ButtonRed onClick={(e) => handleAdvanceStage("progress")}>
+              Avançar
+            </ButtonRed>
           </div>
-          <div className="payment">
+          <div ref={payment} className="payment">
             <h2> Pagamento </h2>
             <div className="payment-container">
               <div className="paymentOptions">
@@ -179,13 +216,13 @@ export function Payment({ admin = false }) {
                         />
                       </div>
                     </div>
-                    <button type="button" onClick={handleSendOrder}>
+                    <ButtonRed type="button" onClick={handleSendOrder}>
                       <PiReceipt /> Finalizar Pagamento
-                    </button>
+                    </ButtonRed>
                   </form>
                 </div>
                 <div ref={pendingPay} className="pending-payment">
-                  {step === 0 ? <FiClock /> : <BsCheckCircle />}
+                  {step === 0 ? <GoClock /> : <BsCheckCircle />}
                   {step === 0 ? (
                     <h3>Aguardando pagamento no caixa</h3>
                   ) : (
@@ -193,6 +230,9 @@ export function Payment({ admin = false }) {
                   )}
                 </div>
               </div>
+              <ButtonRed onClick={(e) => handleAdvanceStage("back")}>
+                Voltar
+              </ButtonRed>
             </div>
           </div>
         </Container>

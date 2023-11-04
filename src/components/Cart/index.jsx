@@ -5,11 +5,9 @@ import Stepper from "../Stepper";
 import AddButton from "../AddButton";
 import { useAuth } from "../../hooks/auth";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useAlert } from "../../hooks/alertNotification";
 import { useCartUpdate } from "../../hooks/CartUpdate";
-import { api } from "../../services/api";
 
 function Cart({ title, description, price, photo, cartId }) {
   const { user } = useAuth();
@@ -52,6 +50,20 @@ function Cart({ title, description, price, photo, cartId }) {
   function viewDish() {
     navigate(`/dish/${cartId}`);
   }
+
+  useEffect(() => {
+    function checkFavorite() {
+      const data =
+        JSON.parse(localStorage.getItem("@food-explorer:favorite")) || [];
+      const check = data.some((item) => item.sku === cartId);
+
+      if (check) {
+        setFavorite(true);
+      }
+    }
+
+    checkFavorite();
+  }, []);
 
   return (
     <Container>

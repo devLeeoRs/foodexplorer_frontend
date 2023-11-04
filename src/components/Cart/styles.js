@@ -80,13 +80,15 @@ export const Icon = styled.div`
   cursor: pointer;
 
   svg {
-    transition: fill 0.3s, stroke 0.3s;
+    transition:
+      fill 0.3s,
+      stroke 0.3s;
     width: 2.4rem;
     height: 2.4rem;
     color: ${({ theme }) => theme.COLORS.LIGHT_300};
     fill: ${({ $favorite }) => ($favorite ? "red" : "transparent")};
     stroke: ${({ $favorite }) => ($favorite ? "transparent" : "#E1E1E6")};
-    stroke-width: 80;
+    stroke-width: ${({ $favorite }) => ($favorite ? "60" : "10")};
     animation: ${({ $favorite }) => $favorite && "beatAnimation 1s infinite"};
   }
 

@@ -18,19 +18,13 @@ export function SearchInput() {
     async function handleSearch() {
       const response = await api.get(`/dishes/search/${search}`);
       setResult(response.data);
-      console.log(response.data);
-
-      if (result.length > 0) {
-        resultDiv.current.style = "display:block";
-      }
-
-      if (!search) {
-        resultDiv.current.style = "display:none";
-      }
     }
 
     if (search !== "") {
       handleSearch();
+      resultDiv.current.style.display = "block";
+    } else {
+      resultDiv.current.style.display = "none";
     }
   }, [search]);
 
@@ -58,7 +52,7 @@ export function SearchInput() {
                 alt=""
               />
               <div className="title">
-                <p>{dish.name.slice(0, 60)}</p>
+                <p className="nameDish">{dish.name.slice(0, 60)}</p>
                 <span>R$ {dish.price}</span>
               </div>
             </div>

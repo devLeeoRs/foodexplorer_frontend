@@ -43,6 +43,7 @@ function AuthProvider({ children }) {
   }
 
   async function signIn({ email, password }) {
+    console.log("test mobile");
     try {
       const response = await api.post(
         "/sessions",
@@ -55,6 +56,7 @@ function AuthProvider({ children }) {
       setData({ user });
       alertNotification(`Bem vindo(a) ${user.name}`);
     } catch (error) {
+      console.log(error);
       alertNotification("Email /ou senha invalidos", "error");
     }
   }

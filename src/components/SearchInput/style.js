@@ -60,7 +60,6 @@ export const ResultSearch = styled.div`
     display: flex;
     align-items: center;
     padding: 1.2rem;
-    justify-content: space-between;
     border-bottom: 1px solid ${({ theme }) => theme.COLORS.DARK_300};
     gap: 2rem;
     font-family: "Poppins", sans-serif;

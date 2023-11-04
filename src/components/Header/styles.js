@@ -34,7 +34,7 @@ export const Container = styled.div`
   .title {
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-start;
 
     h1 {
       color: ${({ theme }) => theme.COLORS.LIGHT_100};

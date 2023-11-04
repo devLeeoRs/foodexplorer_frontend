@@ -23,7 +23,7 @@ export const Banner = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: end;
+  align-items: flex-end;
   width: clamp(29.5rem, 82.589vw + 3.071rem, 122rem);
   height: clamp(12rem, 12.5vw + 8rem, 26rem);
   border-radius: 0.8rem;

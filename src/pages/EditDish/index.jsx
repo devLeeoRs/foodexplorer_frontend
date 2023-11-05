@@ -1,6 +1,6 @@
 import { Body, Container, Main, BackButton, Form, Button } from "./styles";
 import { NewIngredient } from "../../components/NewIngredient";
-import { PiCaretLeftBold } from "react-icons/pi";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import { FiUpload } from "react-icons/FI";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -10,7 +10,7 @@ import { useEffect, useState, useRef } from "react";
 import { useAlert } from "../../hooks/alertNotification";
 import { toast } from "react-toastify";
 
-export function EditDish({ admin = false }) {
+export function EditDish() {
   const navigate = useNavigate();
   const params = useParams();
   const AlertNotification = useAlert();
@@ -137,7 +137,7 @@ export function EditDish({ admin = false }) {
               <label htmlFor="">Foto do Produto</label>
               <div ref={imageButton} className="input">
                 <label id="photoinput">
-                  <FiUpload />
+                  <AiOutlineCloudUpload />
                   Selecione imagem
                   <input
                     id="dishfile"

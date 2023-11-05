@@ -4,11 +4,12 @@ import CartSlider from "../../components/CartSlider";
 import Cart from "../../components/Cart";
 import { Container, Main, Banner } from "./styles";
 import bannerImg from "../../assets/bannerImg.png";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { useParams } from "react-router-dom";
 
 export function Home() {
+  const params = useParams();
   const [meals, setMeals] = useState([]);
   const [toppings, setToppings] = useState([]);
   const [drinks, setDrinks] = useState([]);
@@ -31,7 +32,7 @@ export function Home() {
     getMeals();
     getDesserts();
     loadDrinks();
-  }, []);
+  }, [params]);
 
   return (
     <Container>

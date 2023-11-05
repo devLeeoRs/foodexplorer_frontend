@@ -1,7 +1,7 @@
 import { Body, Container, Main, BackButton, Form, Button } from "./styles";
 import { NewIngredient } from "../../components/NewIngredient";
 import { PiCaretLeftBold } from "react-icons/pi";
-import { FiUpload } from "react-icons/FI";
+import { FiUpload } from "react-icons/fi";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useState, useRef, useEffect } from "react";

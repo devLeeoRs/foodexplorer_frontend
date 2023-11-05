@@ -64,8 +64,8 @@ export function CreateDish() {
   async function handleRegisterDish() {
     const [, priceNumber] = price.split("R$");
 
-    if ((!name, !price, !description)) {
-      alertNotification("Preencha os campos Nome, Preço, Descrição ", "error");
+    if (!name || !price || !description || !file || category === "default") {
+      return alertNotification("Preencha todos os campos ", "error");
     }
 
     const dish = await api.post("/dishes", {

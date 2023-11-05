@@ -8,8 +8,9 @@ import { Favorite } from "../pages/Favorites";
 import { Payment } from "../pages/payment";
 import { Requests } from "../pages/Requests";
 import { Profile } from "../pages/Profile";
+import { NotFound } from "../pages/NotFound";
 
-export function AppRoutes() {
+export function AdminRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -20,6 +21,7 @@ export function AppRoutes() {
       <Route path="/checkout" element={<Payment />} />
       <Route path="/pedidos" element={<Requests />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="*" exact={true} element={<NotFound />} />
     </Routes>
   );
 }

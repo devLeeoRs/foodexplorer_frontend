@@ -1,6 +1,7 @@
 import { Body, Container, Main, BackButton, Form, Button } from "./styles";
 import { NewIngredient } from "../../components/NewIngredient";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { PiCaretLeftBold } from "react-icons/pi";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { Link, useParams, useNavigate } from "react-router-dom";

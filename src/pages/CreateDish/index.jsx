@@ -1,7 +1,7 @@
 import { Body, Container, Main, BackButton, Form, Button } from "./styles";
 import { NewIngredient } from "../../components/NewIngredient";
 import { PiCaretLeftBold } from "react-icons/pi";
-import { FiUpload } from "react-icons/fi";
+import { AiOutlineCloudUpload } from "react-icons/ai";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useState, useRef, useEffect } from "react";
@@ -126,7 +126,7 @@ export function CreateDish() {
               <label htmlFor="">Foto do Produto</label>
               <div ref={imageButton} className="input">
                 <label id="photoinput">
-                  <FiUpload />
+                  <AiOutlineCloudUpload />
                   Selecione imagem
                   <input
                     accept="image/*"

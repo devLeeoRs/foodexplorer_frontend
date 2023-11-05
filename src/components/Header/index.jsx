@@ -85,10 +85,14 @@ function Header() {
                 </Link>
               ))}
           </div>
-          <button>Historico de pedidos</button>
-          <button>Meus Favoritos</button>
-          <button>Perfil</button>
-          <button>Sair</button>
+          <button onClick={(e) => handleGoToLink("/pedidos")}>
+            Historico de pedidos
+          </button>
+          <button onClick={(e) => handleGoToLink("/favoritos")}>
+            Meus Favoritos
+          </button>
+          <button onClick={(e) => handleGoToLink("/profile")}>Perfil</button>
+          <button onClick={handleSignOut}>Sair</button>
         </div>
 
         <Footer classNama="footerBurger" />

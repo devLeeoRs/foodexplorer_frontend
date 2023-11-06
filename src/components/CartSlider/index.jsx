@@ -4,11 +4,13 @@ import { Container, TitleCategory } from "./styles";
 
 function CartSlider({ children, title }) {
   const carts = useRef();
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(200);
 
   useEffect(() => {
     setWidth(carts.current?.scrollWidth - carts.current?.offsetWidth);
-  });
+  }, [carts]);
+
+  console.log(width);
 
   return (
     <Container>
@@ -21,7 +23,9 @@ function CartSlider({ children, title }) {
         <motion.div
           className="inner"
           drag="x"
-          dragConstraints={{ right: 0, left: -width }}
+          dragConstraints={{ right: 0, left: -width || -400 }}
+          initial={{ x: 200 }}
+          animate={{ x: 0 }}
         >
           {children}
         </motion.div>

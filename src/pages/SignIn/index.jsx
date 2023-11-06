@@ -3,12 +3,25 @@ import logoIcon from "../../assets/logoicon.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useState } from "react";
+import CookieBanner from "../../components/CookieBanner";
+import { useCookies } from "react-cookie";
 
 export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie] = useCookies(["cookieConsent"]);
 
   const { signIn } = useAuth();
+
+  const handleAccept = () => {
+    setCookie("cookieConsent", true, { path: "/" });
+    alert("aceitou o cookie");
+  };
+
+  const handleDecline = () => {
+    // Lógica para recusar cookies (opcional)
+    console.log("recusou");
+  };
 
   async function handleSign() {
     signIn({ email, password });
@@ -16,6 +29,7 @@ export function SignIn() {
 
   return (
     <Container>
+      <CookieBanner accept={handleAccept} decline={handleDecline} />
       <div className="logo-intro">
         <img src={logoIcon} alt="" />
         <h1>food explorer</h1>

@@ -4,7 +4,7 @@ export const Container = styled.div`
   margin: 1.6rem 1rem;
 
   .cards {
-    width: 112rem;
+    max-width: 112rem;
     margin: 0 auto;
     cursor: grab;
     overflow: hidden;

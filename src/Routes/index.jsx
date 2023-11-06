@@ -6,9 +6,11 @@ import { useAuth } from "../hooks/auth";
 import { USER_ROLE } from "../utils/roles";
 import { useEffect } from "react";
 import { api } from "../services/api";
+import { useCookies } from "react-cookie";
 
 export function Routes() {
   const { user, signOut } = useAuth();
+  const cookie = useCookies('')
 
   useEffect(() => {
     console.log("entrou aqui ");

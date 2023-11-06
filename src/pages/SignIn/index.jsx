@@ -10,17 +10,17 @@ export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["cookieConsent"]);
+  const [showCookie, setShowCookie] = useState(true);
 
   const { signIn } = useAuth();
 
   const handleAccept = () => {
     setCookie("cookieConsent", true, { path: "/" });
-    alert("aceitou o cookie");
+    setShowCookie(!setCookie);
   };
 
   const handleDecline = () => {
-    // Lógica para recusar cookies (opcional)
-    console.log("recusou");
+    setShowCookie(!setCookie);
   };
 
   async function handleSign() {
@@ -29,7 +29,9 @@ export function SignIn() {
 
   return (
     <Container>
-      <CookieBanner accept={handleAccept} decline={handleDecline} />
+      {showCookie && (
+        <CookieBanner accept={handleAccept} decline={handleDecline} />
+      )}
       <div className="logo-intro">
         <img src={logoIcon} alt="" />
         <h1>food explorer</h1>

@@ -1,16 +1,15 @@
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { Container, TitleCategory } from "./styles";
+import { CartPreLoader } from "../CartPreLoader";
 
-function CartSlider({ children, title }) {
+function CartSlider({ children, title, loading }) {
   const carts = useRef();
-  const [width, setWidth] = useState(200);
+  const [width, setWidth] = useState(0);
 
   useEffect(() => {
     setWidth(carts.current?.scrollWidth - carts.current?.offsetWidth);
-  }, [carts]);
-
-  console.log(width);
+  }, []);
 
   return (
     <Container>
@@ -27,7 +26,17 @@ function CartSlider({ children, title }) {
           initial={{ x: 200 }}
           animate={{ x: 0 }}
         >
-          {children}
+          {loading ? (
+            <>
+              <CartPreLoader />
+              <CartPreLoader />
+              <CartPreLoader />
+              <CartPreLoader />
+              <CartPreLoader />
+            </>
+          ) : (
+            children
+          )}
         </motion.div>
       </motion.div>
     </Container>

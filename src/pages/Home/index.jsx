@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CartSlider from "../../components/CartSlider";
+import { CartPreLoader } from "../../components/CartPreLoader";
 import Cart from "../../components/Cart";
 import { Container, Main, Banner } from "./styles";
 import bannerImg from "../../assets/bannerImg.png";
@@ -13,20 +14,24 @@ export function Home() {
   const [meals, setMeals] = useState([]);
   const [toppings, setToppings] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   useEffect(() => {
     async function getMeals() {
       const dish = await api.get("/dishes/refeiçoes");
       setMeals(dish.data);
+      setLoader(false);
     }
     async function getDesserts() {
       const dish = await api.get("/dishes/sobremesas");
       setToppings(dish.data);
+      setLoader(false);
     }
 
     async function loadDrinks() {
       const drinks = await api.get("/dishes/bebidas");
       setDrinks(drinks.data);
+      setLoader(false);
     }
 
     getMeals();
@@ -45,7 +50,7 @@ export function Home() {
           </div>
           <img src={bannerImg} alt="" />
         </Banner>
-        <CartSlider title="Refeições">
+        <CartSlider loading={loader} title="Refeições">
           {meals &&
             meals.map((dish) => (
               <Cart

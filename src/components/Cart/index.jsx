@@ -41,6 +41,7 @@ function Cart({ title, description, price, photo, cartId }) {
   }
 
   function handleAddCart() {
+    event.preventDefault();
     addCart(qtd, cartId, title, price, photo);
   }
 

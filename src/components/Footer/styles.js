@@ -19,20 +19,24 @@ export const Container = styled.div`
   bottom: 0px;
   margin: 0 2rem;
 
+  img {
+    width: clamp(1rem, 1.429vw + 0.543rem, 2.6rem);
+  }
+
   .logo {
     display: flex;
     align-items: center;
     gap: 1rem;
 
     h3 {
-      font-size: clamp(1.8rem, 0.893vw + 1.514rem, 2.8rem);
+      font-size: clamp(1rem, 1.607vw + 0.486rem, 2.8rem);
       font-weight: 700;
       color: ${({ theme }) => theme.COLORS.LIGHT_700};
     }
   }
 
   p {
-    font-size: clamp(1.2rem, 0.179vw + 1.143rem, 1.4rem);
+    font-size: clamp(1rem, 0.357vw + 0.886rem, 1.4rem);
     font-weight: 400;
     color: ${({ theme }) => theme.COLORS.LIGHT_200};
     text-align: end;

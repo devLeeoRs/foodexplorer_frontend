@@ -7,10 +7,11 @@ const CookieBanner = ({ accept, decline }) => {
   return (
     <Container className="cookie-banner">
       <LiaCookieBiteSolid className="cookie-icon" />
-      <p>
+      <p className="cookie-desk">
         Usamos cookies para melhorar sua experiência. Ao continuar, você aceita
         nosso uso de cookies.
       </p>
+      <p className="cookie-mobile">Aceitar uso de cookies</p>
       <div className="buttons-cookie">
         <button onClick={accept}>Aceitar</button>
         <span onClick={decline}>

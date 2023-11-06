@@ -63,7 +63,7 @@ export function Home() {
               />
             ))}
         </CartSlider>
-        <CartSlider title="Sobremesas">
+        <CartSlider loading={loader} title="Sobremesas">
           {toppings &&
             toppings.map((dish) => (
               <Cart
@@ -76,7 +76,7 @@ export function Home() {
               />
             ))}
         </CartSlider>
-        <CartSlider title="Bebidas">
+        <CartSlider loading={loader} title="Bebidas">
           {drinks &&
             drinks.map((dish) => (
               <Cart

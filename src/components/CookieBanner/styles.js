@@ -22,6 +22,10 @@ export const Container = styled.div`
     color: #6f6c90;
   }
 
+  .cookie-mobile {
+    display: none;
+  }
+
   button {
     padding: 14px 22px 16px 22px;
     border-radius: 56px;
@@ -39,7 +43,7 @@ export const Container = styled.div`
     gap: 2.7rem;
   }
 
-  p {
+  .cookie-desk {
     font-family: "Poppins";
     color: #6f6c90;
     font-size: 1.4rem;
@@ -55,5 +59,9 @@ export const Container = styled.div`
     100% {
       bottom: 2rem;
     }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `;

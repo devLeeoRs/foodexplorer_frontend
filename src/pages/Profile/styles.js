@@ -93,6 +93,7 @@ export const UserProfile = styled.div`
     img {
       width: 20rem;
       height: 20rem;
+      object-fit: cover;
       border-radius: 99px;
     }
   }

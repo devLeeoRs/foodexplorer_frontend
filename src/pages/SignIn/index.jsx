@@ -2,7 +2,7 @@ import { Container, FormSingIn } from "./styles";
 import logoIcon from "../../assets/logoicon.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CookieBanner from "../../components/CookieBanner";
 import { useCookies } from "react-cookie";
 
@@ -27,6 +27,12 @@ export function SignIn() {
     signIn({ email, password });
   }
 
+  function handleKeypress(e) {
+    if (e.key === "Enter") {
+      handleSign();
+    }
+  }
+
   return (
     <Container>
       {showCookie && (
@@ -41,6 +47,7 @@ export function SignIn() {
         <label htmlFor="name">Email</label>
         <input
           onChange={(e) => setEmail(e.target.value)}
+          onKeyUp={handleKeypress}
           id="name"
           type="text"
           placeholder="Exemplo: Maria da Silva"
@@ -48,6 +55,7 @@ export function SignIn() {
         <label htmlFor="password">Senha</label>
         <input
           onChange={(e) => setPassword(e.target.value)}
+          onKeyUp={handleKeypress}
           id="password"
           type="password"
           placeholder="No minimo 6 caracteres"

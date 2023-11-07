@@ -10,10 +10,9 @@ import { useCookies } from "react-cookie";
 
 export function Routes() {
   const { user, signOut } = useAuth();
-  const cookie = useCookies('')
+  const cookie = useCookies("");
 
   useEffect(() => {
-    console.log("entrou aqui ");
     api.get("/users/validated").catch((error) => {
       if (error.response?.status === 401) {
         signOut();

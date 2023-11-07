@@ -22,7 +22,6 @@ function AuthProvider({ children }) {
       fileUploadForm.append("upload", avatarFile);
 
       const response = await api.patch("/upload/userAvatar", fileUploadForm);
-      console.log(response);
       user.avatar = response.data.avatar_url;
     }
 
@@ -43,7 +42,6 @@ function AuthProvider({ children }) {
   }
 
   async function signIn({ email, password }) {
-    console.log("test mobile");
     try {
       const response = await api.post(
         "/sessions",
@@ -56,7 +54,6 @@ function AuthProvider({ children }) {
       setData({ user });
       alertNotification(`Bem vindo(a) ${user.name}`);
     } catch (error) {
-      console.log(error);
       alertNotification("Email /ou senha invalidos", "error");
     }
   }

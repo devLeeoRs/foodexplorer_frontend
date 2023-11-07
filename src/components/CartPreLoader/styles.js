@@ -53,6 +53,20 @@ export const Container = styled.div`
     height: 5.2rem;
   }
 
+  @media (max-width: 425px) {
+    min-width: 2.7rem;
+    height: 31rem;
+
+    #description {
+      display: none;
+    }
+    #img {
+      width: 9.2rem;
+      height: 9.2rem;
+      border-radius: 99rem;
+    }
+  }
+
   @keyframes pulse {
     50% {
       opacity: 0.5;

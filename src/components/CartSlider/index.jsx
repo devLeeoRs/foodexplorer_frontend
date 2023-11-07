@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 function CartSlider({ category, title }) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loader, setLoader] = useState([1, 2, 3, 4, 5]);
   const [dishes, setDishes] = useState([]);
   const breakPointsSwiper = {

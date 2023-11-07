@@ -9,7 +9,7 @@ import iconLogo from "../../assets/logoicon.svg";
 import { PiSignOut, PiReceipt, PiClipboardText } from "react-icons/pi";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useResolvedPath } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 import { useEffect, useRef } from "react";
 import { SearchInput } from "../SearchInput";
@@ -18,6 +18,7 @@ import Footer from "../Footer";
 import { api } from "../../services/api";
 
 function Header() {
+  const { pathname } = useResolvedPath();
   const { signOut, user, cartQtd, updateCart } = useAuth();
   const admin = user.role === "admin";
   const navigate = useNavigate();
@@ -85,13 +86,19 @@ function Header() {
                 </Link>
               ))}
           </div>
-          <button onClick={(e) => handleGoToLink("/pedidos")}>
-            Historico de pedidos
-          </button>
-          <button onClick={(e) => handleGoToLink("/favoritos")}>
-            Meus Favoritos
-          </button>
-          <button onClick={(e) => handleGoToLink("/profile")}>Perfil</button>
+          {pathname !== "/pedidos" && (
+            <button onClick={(e) => handleGoToLink("/pedidos")}>
+              Historico de pedidos
+            </button>
+          )}
+          {pathname !== "/favoritos" && (
+            <button onClick={(e) => handleGoToLink("/favoritos")}>
+              Meus Favoritos
+            </button>
+          )}
+          {pathname !== "/profile" && (
+            <button onClick={(e) => handleGoToLink("/profile")}>Perfil</button>
+          )}
           <button onClick={handleSignOut}>Sair</button>
         </div>
 

@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export function Favorite({ admin = false }) {
+export function Favorite() {
   const navigate = useNavigate();
 
   function handleToBack() {
@@ -31,7 +31,7 @@ export function Favorite({ admin = false }) {
     }
 
     getFavs();
-  }, [favorite]);
+  }, []);
 
   return (
     <Body>

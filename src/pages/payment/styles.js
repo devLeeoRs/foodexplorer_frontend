@@ -237,6 +237,7 @@ export const Container = styled.div`
 
   @media (max-width: 768px) {
     justify-content: center;
+    margin: 0 3rem 3rem 3rem;
 
     .payment {
       display: none;

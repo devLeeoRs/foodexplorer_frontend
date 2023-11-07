@@ -157,7 +157,7 @@ function Header() {
 
         {!admin && (
           <MobileOrderButton $favorite={menuOpen}>
-            <PiReceipt />
+            <PiReceipt onClick={(e) => handleGoToLink("/checkout")} />
             <span>{cartQtd || 0}</span>
           </MobileOrderButton>
         )}

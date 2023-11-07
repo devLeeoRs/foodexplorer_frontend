@@ -6,6 +6,8 @@ import theme from "./styles/theme";
 import { Routes } from "./Routes/index";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { register } from "swiper/element/bundle";
+register();
 
 import { AuthProvider } from "./hooks/auth";
 

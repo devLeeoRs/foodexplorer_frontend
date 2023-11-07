@@ -1,44 +1,20 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 1.6rem 1rem;
+  margin: 0 auto 2rem auto;
+  max-width: 122rem;
 
-  .cards {
-    max-width: 112rem;
-    margin: 0 auto;
-    cursor: grab;
-    overflow: hidden;
-    position: relative;
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+    font-size: 4rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_200};
   }
 
-  .inner {
-    display: flex;
-    gap: 0.8rem;
-  }
+  @media (max-width: 1024px) {
+    margin-left: 1rem;
 
-  .blur-right {
-    position: absolute;
-    width: 22rem;
-    height: 100%;
-    top: 1px;
-    right: -10px;
-    filter: blur(5px);
-    background: linear-gradient(90deg, rgba(0, 10, 15, 0.15) 0%, #000a0f 100%);
-  }
-
-  .blur-left {
-    position: absolute;
-    width: 22rem;
-    height: 100%;
-    top: 1px;
-    left: -10px;
-    filter: blur(5px);
-    background: linear-gradient(-90deg, rgba(0, 10, 15, 0.27) 0%, #000a0f 100%);
-  }
-
-  @media (max-width: 728px) {
-    .blur-left,
-    .blur-right {
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
       display: none;
     }
   }

@@ -45,7 +45,7 @@ export const Container = styled.div`
   }
 
   @media (max-width: 425px) {
-    margin-top: 1rem;
+    margin-top: 5rem;
     flex-direction: column;
   }
 `;
@@ -177,13 +177,13 @@ export const UserAddress = styled.div`
     display: flex;
     justify-content: flex-end;
     margin-top: 1.6rem;
+    gap: 1.6rem;
   }
 
   @media (max-width: 1024px) {
     .divide-3 {
       flex-wrap: wrap;
     }
-    height: 100%;
   }
 
   @media (max-width: 768px) {

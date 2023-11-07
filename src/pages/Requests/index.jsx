@@ -60,7 +60,7 @@ export function Requests() {
       <Header />
       <Main>
         <Container>
-          <Title>Historico de pedidos</Title>
+          <Title>{admin ? "Pedidos" : "Historico de pedidos"}</Title>
           <Table>
             <thead className="headerTable">
               <tr>

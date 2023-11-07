@@ -88,10 +88,15 @@ function Header() {
           </div>
           {pathname !== "/pedidos" && (
             <button onClick={(e) => handleGoToLink("/pedidos")}>
-              Historico de pedidos
+              {admin ? "Pedidos Recebidos" : "Historico de pedidos"}
             </button>
           )}
-          {pathname !== "/favoritos" && (
+          {(pathname !== "/create-dish") & admin && (
+            <button onClick={(e) => handleGoToLink("/create-dish")}>
+              Novo prato
+            </button>
+          )}
+          {(pathname !== "/favoritos") & !admin && (
             <button onClick={(e) => handleGoToLink("/favoritos")}>
               Meus Favoritos
             </button>

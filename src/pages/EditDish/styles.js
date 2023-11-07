@@ -14,6 +14,7 @@ export const Main = styled.main`
   padding: 2.4rem 1rem;
   grid-area: Main;
   display: flex;
+  flex-direction: column;
 
   height: 100%;
   overflow-y: auto;

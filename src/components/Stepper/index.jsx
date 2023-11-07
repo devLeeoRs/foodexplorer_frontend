@@ -16,11 +16,11 @@ function Stepper({ qtd, setQtd }) {
   return (
     <Container>
       <button className="minus">
-        <BiMinus onMouseDown={minus} />
+        <BiMinus onClick={minus} />
       </button>
       <span>{qtd < 10 ? `0${qtd}` : qtd}</span>
       <button>
-        <BiPlus onMouseDown={plus} />
+        <BiPlus onClick={plus} />
       </button>
     </Container>
   );

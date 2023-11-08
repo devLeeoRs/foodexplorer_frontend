@@ -16,22 +16,17 @@ export function SignUp() {
 
   function handleRegister() {
     if (!name || !email || !password) {
-      alert("Preecha todos os dados");
+      return AlertNotification("Preecha todos os dados", "error");
+    } else if (password.length < 6) {
+      return AlertNotification("senha muito fraca", "error");
     }
 
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexPassword =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     const CheckIsEmail = regexEmail.test(email);
-    const CheckIsPassword = regexPassword.test(password);
 
     if (!CheckIsEmail) {
       return AlertNotification("Email Invalido", "error");
-    }
-
-    if (!CheckIsPassword) {
-      return AlertNotification("Senha muito Fraca", "error");
     }
 
     api

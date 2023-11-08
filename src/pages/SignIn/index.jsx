@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/auth";
 import { useCookies } from "react-cookie";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export function SignIn() {
   const [cookies, setCookie] = useCookies(["cookieConsent"]);

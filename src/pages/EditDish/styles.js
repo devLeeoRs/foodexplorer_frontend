@@ -140,6 +140,7 @@ export const Form = styled.form`
         height: 100%;
         aspect-ratio: 1/1;
         border-radius: 99px;
+        object-fit: cover;
       }
     }
   }

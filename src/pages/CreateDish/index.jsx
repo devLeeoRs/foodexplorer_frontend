@@ -1,13 +1,13 @@
 import { Body, Container, Main, BackButton, Form, Button } from "./styles";
 import { NewIngredient } from "../../components/NewIngredient";
-import { PiCaretLeftBold } from "react-icons/pi";
+import { useAlert } from "../../hooks/alertNotification";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import { useState, useRef, useEffect } from "react";
+import { PiCaretLeftBold } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
-import { useAlert } from "../../hooks/alertNotification";
 import { toast } from "react-toastify";
 
 export function CreateDish() {
@@ -68,6 +68,10 @@ export function CreateDish() {
       return alertNotification("Preencha todos os campos ", "error");
     }
 
+    if (newIngredient) {
+      return alertNotification("Adicione os Ingredientes", "error");
+    }
+
     const dish = await api.post("/dishes", {
       name,
       description,
@@ -89,6 +93,7 @@ export function CreateDish() {
 
     navigate("/");
   }
+
   function handleAddIngredient() {
     const checkIsExistIngredient = ingredients.includes(newIngredient);
     if (!newIngredient) {

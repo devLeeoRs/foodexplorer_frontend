@@ -98,6 +98,12 @@ export function EditDish() {
     }
   }
 
+  async function handleDeleteDish() {
+    await api.delete(`/dishes/${params.id}`);
+    AlertNotification("Prato deletado", "success");
+    navigate("/");
+  }
+
   useEffect(() => {
     if (file) {
       imageButton.current.style.background = "#b3093f";
@@ -226,7 +232,9 @@ export function EditDish() {
               </div>
             </div>
             <div className="buttons">
-              <Button $dark={true}>Excluir prato</Button>
+              <Button type="button" $dark={true} onClick={handleDeleteDish}>
+                Excluir prato
+              </Button>
               <Button type="button" onClick={handleUpdateDish}>
                 Salvar Alteraçoes
               </Button>

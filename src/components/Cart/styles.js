@@ -19,6 +19,7 @@ export const Container = styled.div`
     width: 17.6rem;
     height: 17.6rem;
     pointer-events: none;
+    object-fit: cover;
   }
 
   h3 {

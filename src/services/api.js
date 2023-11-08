@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://foodexplorer-leonardooliveira.koyeb.app",
+  baseURL: "http://localhost:3333",
   withCredentials: true,
 });

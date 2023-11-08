@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Container, ResultSearch } from "./style";
+import { useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { api } from "../../services/api";
-import { useHref, useNavigate } from "react-router-dom";
 
 export function SearchInput() {
   const navigate = useNavigate();
+  const resultDiv = useRef();
+
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
-  const resultDiv = useRef();
 
   function handleToLink(link) {
     navigate(`/dish/${link}`);

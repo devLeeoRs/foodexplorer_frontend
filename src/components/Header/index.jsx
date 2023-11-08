@@ -5,23 +5,26 @@ import {
   HeaderFood,
   MenuOpen,
 } from "./styles";
-import iconLogo from "../../assets/logoicon.svg";
-import { PiSignOut, PiReceipt, PiClipboardText } from "react-icons/pi";
-import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineClose, AiOutlineSearch, AiOutlineUser } from "react-icons/ai";
+import { PiSignOut, PiReceipt, PiClipboardText } from "react-icons/pi";
 import { Link, useNavigate, useResolvedPath } from "react-router-dom";
-import { useAuth } from "../../hooks/auth";
-import { useEffect, useRef } from "react";
+import { useCartUpdate } from "../../hooks/cartUpdate";
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import iconLogo from "../../assets/logoicon.svg";
 import { SearchInput } from "../SearchInput";
+import { useAuth } from "../../hooks/auth";
+import { api } from "../../services/api";
+import { useEffect } from "react";
 import { useState } from "react";
 import Footer from "../Footer";
-import { api } from "../../services/api";
 
 function Header() {
+  const { cartQtd, updateCart } = useCartUpdate();
   const { pathname } = useResolvedPath();
-  const { signOut, user, cartQtd, updateCart } = useAuth();
-  const admin = user.role === "admin";
+  const { signOut, user } = useAuth();
   const navigate = useNavigate();
+
+  const admin = user.role === "admin";
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -30,17 +33,15 @@ function Header() {
   const handleToggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
   function handleGoToLink(link) {
     navigate(link);
   }
+
   function handleSignOut() {
     navigate("/");
     signOut();
   }
-
-  useEffect(() => {
-    updateCart();
-  }, []);
 
   useEffect(() => {
     async function handleSearch() {
@@ -52,6 +53,10 @@ function Header() {
       handleSearch();
     }
   }, [search]);
+
+  useEffect(() => {
+    updateCart();
+  }, []);
 
   return (
     <HeaderFood>
@@ -91,12 +96,12 @@ function Header() {
               {admin ? "Pedidos Recebidos" : "Historico de pedidos"}
             </button>
           )}
-          {(pathname !== "/create-dish") & admin && (
+          {pathname !== "/create-dish" && admin && (
             <button onClick={(e) => handleGoToLink("/create-dish")}>
               Novo prato
             </button>
           )}
-          {(pathname !== "/favoritos") & !admin && (
+          {pathname !== "/favoritos" && !admin && (
             <button onClick={(e) => handleGoToLink("/favoritos")}>
               Meus Favoritos
             </button>

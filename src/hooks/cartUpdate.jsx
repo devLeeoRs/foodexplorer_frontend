@@ -1,9 +1,17 @@
-import { useAlert } from "../hooks/alertNotification";
-import { useAuth } from "./auth";
+import { createContext, useContext, useState } from "react";
+import { useAlert } from "./alertNotification";
 
-export function useCartUpdate() {
+export const CartContext = createContext({});
+
+function CartProvider({ children }) {
+  const [cartQtd, setCartQtd] = useState(0);
   const alertNotification = useAlert();
-  const { updateCart } = useAuth();
+
+  function updateCart() {
+    const cartOrder =
+      JSON.parse(localStorage.getItem("@food-explorer:cart")) || [];
+    setCartQtd(cartOrder.length);
+  }
 
   function addCart(qtd, cartId, title, price, image) {
     const convertNumber = parseFloat(price.replace(",", "."));
@@ -34,5 +42,16 @@ export function useCartUpdate() {
     updateCart();
   }
 
-  return addCart;
+  return (
+    <CartContext.Provider value={{ cartQtd, addCart, updateCart }}>
+      {children}
+    </CartContext.Provider>
+  );
 }
+
+function useCartUpdate() {
+  const context = useContext(CartContext);
+  return context;
+}
+
+export { CartProvider, useCartUpdate };

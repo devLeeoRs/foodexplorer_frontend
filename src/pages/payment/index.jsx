@@ -12,18 +12,14 @@ import pixqrcode from "../../assets/pixqrcode.svg";
 import { useAlert } from "../../hooks/alertNotification";
 import { api } from "../../services/api";
 
-export function Payment({ admin = false }) {
+export function Payment() {
+  const alertNotification = useAlert();
   const navigate = useNavigate();
   const payPix = useRef();
   const payCredit = useRef();
   const pendingPay = useRef();
   const payment = useRef();
   const myOrder = useRef();
-  const alertNotification = useAlert();
-
-  function handleToBack() {
-    navigate(-1);
-  }
 
   const [orders, setOrders] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
@@ -32,6 +28,10 @@ export function Payment({ admin = false }) {
   const [validity, setValidity] = useState("");
   const [securityCode, setSecurityCode] = useState("");
   const [step, setStep] = useState(0);
+
+  function handleToBack() {
+    navigate(-1);
+  }
 
   function optionPayment(option) {
     if (option === "pix") {

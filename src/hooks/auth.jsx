@@ -8,13 +8,6 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const alertNotification = useAlert();
   const [data, setData] = useState({});
-  const [cartQtd, setCartQtd] = useState(0);
-
-  function updateCart() {
-    const cartOrder =
-      JSON.parse(localStorage.getItem("@food-explorer:cart")) || [];
-    setCartQtd(cartOrder.length);
-  }
 
   async function updateProfile({ user, avatarFile }) {
     if (avatarFile) {
@@ -78,9 +71,7 @@ function AuthProvider({ children }) {
       value={{
         signIn,
         signOut,
-        updateCart,
         updateProfile,
-        cartQtd,
         user: data.user,
       }}
     >

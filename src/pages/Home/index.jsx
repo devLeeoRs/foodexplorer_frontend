@@ -17,7 +17,7 @@ export function Home() {
           <img src={bannerImg} alt="" />
         </Banner>
         <CartSlider category="refeiçoes" title="Refeições" />
-        <CartSlider category="sobremesas" title="Refeições" />
+        <CartSlider category="sobremesas" title="Sobremesas" />
         <CartSlider category="bebidas" title="Bebidas" />
         <Footer />
       </Main>

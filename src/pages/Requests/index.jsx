@@ -17,14 +17,9 @@ import { useAuth } from "../../hooks/auth";
 import { SelectStatus } from "../../components/SelectStatus";
 
 export function Requests() {
-  const navigate = useNavigate();
   const { user } = useAuth();
 
   const admin = user.role === "admin";
-
-  function handleToBack() {
-    navigate(-1);
-  }
 
   const [orders, setOrders] = useState([]);
 

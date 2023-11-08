@@ -20,12 +20,14 @@ import { api } from "../../services/api";
 export function Profile() {
   const { user, updateProfile } = useAuth();
 
-  const [stage, setStage] = useState(0);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [phone, setPhone] = useState(user.phone || "");
+
+  const [stage, setStage] = useState(0);
   const [newPassword, setNewPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
+
   const [cpf, setCpf] = useState(user.cpf || "");
   const [birth, setBirth] = useState(user.birth_date || "");
   const [address, setAddress] = useState(user.address || "");

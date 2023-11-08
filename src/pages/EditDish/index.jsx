@@ -16,6 +16,19 @@ export function EditDish() {
   const AlertNotification = useAlert();
   const imageButton = useRef();
 
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredients] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
+  const [file, setFile] = useState(null);
+
+  function handleBack() {
+    navigate("/");
+  }
+
   function maskPrice(value) {
     const numericValue = value.replace(/\D/g, "");
 
@@ -46,20 +59,12 @@ export function EditDish() {
     setIngredients((prevState) => [...prevState, newIngredient]);
     setNewIngredients("");
   }
+
   function handleRemoveIngredient(remove) {
     setIngredients((prevState) =>
       prevState.filter((ingredient) => ingredient !== remove)
     );
   }
-
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState([]);
-  const [newIngredient, setNewIngredients] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
-  const [file, setFile] = useState(null);
 
   function handleUploadImage(e) {
     const fileUpload = e.target.files[0];
@@ -101,7 +106,7 @@ export function EditDish() {
   }, [file]);
 
   useEffect(() => {
-    async function loadingDishe() {
+    async function loadingDish() {
       const { data } = await api.get(`/dishes/dish/${params.id}`);
       setName(data.name);
       setPrice(`R$ ${data.price}`);
@@ -110,12 +115,8 @@ export function EditDish() {
       setCategory(data.category);
       setImagePreview(`${api.defaults.baseURL}/uploads/${data.photo_url}`);
     }
-    loadingDishe();
-  }, [params]);
-
-  function handleBack() {
-    navigate("/");
-  }
+    loadingDish();
+  }, []);
 
   return (
     <Body>

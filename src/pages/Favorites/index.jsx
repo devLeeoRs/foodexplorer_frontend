@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 export function Favorite() {
   const navigate = useNavigate();
 
+  const [favorite, setFavorite] = useState([]);
+
   function handleToBack() {
     navigate(-1);
   }
-
-  const [favorite, setFavorite] = useState([]);
 
   function handleRemoveFavorite(id) {
     const indexFavorite = favorite.findIndex((item) => item.sku === id);

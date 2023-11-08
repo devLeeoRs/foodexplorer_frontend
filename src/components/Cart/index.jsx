@@ -1,19 +1,20 @@
-import { Container, Icon } from "./styles";
-import { AiOutlineHeart, AiOutlineEye, AiFillHeart } from "react-icons/ai";
-import { PiPencilSimpleLight } from "react-icons/pi";
-import Stepper from "../Stepper";
-import AddButton from "../AddButton";
-import { useAuth } from "../../hooks/auth";
-import { useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useCartUpdate } from "../../hooks/cartUpdate";
 import { MdKeyboardArrowRight } from "react-icons/md";
-import { useCartUpdate } from "../../hooks/CartUpdate";
+import { PiPencilSimpleLight } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+import { AiFillHeart } from "react-icons/ai";
+import { useState, useEffect } from "react";
+import { Container, Icon } from "./styles";
+import { useAuth } from "../../hooks/auth";
+import AddButton from "../AddButton";
+import Stepper from "../Stepper";
 
 function Cart({ title, description, price, photo, cartId }) {
-  const { user } = useAuth();
-  const admin = user.role === "admin";
+  const { addCart } = useCartUpdate();
   const navigate = useNavigate();
-  const addCart = useCartUpdate();
+  const { user } = useAuth();
+
+  const admin = user.role === "admin";
 
   const [qtd, setQtd] = useState(1);
   const [favorite, setFavorite] = useState(false);
@@ -41,13 +42,13 @@ function Cart({ title, description, price, photo, cartId }) {
   }
 
   function handleAddCart() {
-    event.preventDefault();
     addCart(qtd, cartId, title, price, photo);
   }
 
   function handleEditLink() {
     navigate(`/edit/${cartId}`);
   }
+
   function viewDish() {
     navigate(`/dish/${cartId}`);
   }

@@ -3,6 +3,7 @@ import { Container, TitleCategory } from "./styles";
 import { CartPreLoader } from "../CartPreLoader";
 import { api } from "../../services/api";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import Cart from "../Cart";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -56,7 +57,8 @@ function CartSlider({ category, title }) {
         slidesPerView={1.5}
         grabCursor={true}
         navigation={true}
-        slidesOffsetAfter={100}
+        modules={[Navigation]}
+        slidesOffsetAfter={30}
         breakpoints={breakPointsSwiper}
       >
         {loading

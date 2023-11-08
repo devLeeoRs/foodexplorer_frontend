@@ -1,16 +1,16 @@
+import CookieBanner from "../../components/CookieBanner";
 import { Container, FormSingIn } from "./styles";
 import logoIcon from "../../assets/logoicon.svg";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
-import { useRef, useState } from "react";
-import CookieBanner from "../../components/CookieBanner";
 import { useCookies } from "react-cookie";
+import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [cookies, setCookie] = useCookies(["cookieConsent"]);
   const [showCookie, setShowCookie] = useState(true);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const { signIn } = useAuth();
 
@@ -46,7 +46,7 @@ export function SignIn() {
         <h2>Faça login</h2>
         <label htmlFor="name">Email</label>
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value.toLowerCase())}
           onKeyUp={handleKeypress}
           id="name"
           type="text"

@@ -1,14 +1,13 @@
+import { useAlert } from "../../hooks/alertNotification";
 import { Container, FormSingIn } from "./styles";
 import logoIcon from "../../assets/logoicon.svg";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../services/api";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
-import { useAlert } from "../../hooks/alertNotification";
 
 export function SignUp() {
   const AlertNotification = useAlert();
-
   const navigate = useNavigate();
 
   const [name, SetName] = useState("");
@@ -67,7 +66,7 @@ export function SignUp() {
         />
         <label htmlFor="password">Email</label>
         <input
-          onChange={(e) => SetEmail(e.target.value)}
+          onChange={(e) => SetEmail(e.target.value.toLowerCase())}
           id="email"
           type="text"
           placeholder="Exemplo: exemplo@exemplo.com.br"

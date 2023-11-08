@@ -1,10 +1,10 @@
 import { Select, SelectOption, Container } from "./styles";
+import { useAlert } from "../../hooks/alertNotification";
 import { GoChevronDown } from "react-icons/go";
 import { BsCircleFill } from "react-icons/bs";
-import { useState } from "react";
 import { api } from "../../services/api";
-import { useAlert } from "../../hooks/alertNotification";
 import { toast } from "react-toastify";
+import { useState } from "react";
 
 export function SelectStatus({ value, order_id }) {
   const [open, setOpen] = useState(false);

@@ -1,6 +1,6 @@
-import { Select } from "./styles";
 import { LuChevronDown, LuChevronUp, LuCheck } from "react-icons/lu";
 import { useState, useRef } from "react";
+import { Select } from "./styles";
 
 export function InputSelect({ options }) {
   const [select, setSelect] = useState("Selecione a categoria");
@@ -10,7 +10,6 @@ export function InputSelect({ options }) {
   function addSelect(e) {
     setSelect(e.target.value);
 
-    // Se o evento for um clique do mouse OU um toque (touch)
     if (e.type === "click" || e.type === "touchend") {
       option.current.click();
     }

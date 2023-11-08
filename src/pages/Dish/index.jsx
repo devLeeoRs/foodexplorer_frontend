@@ -8,37 +8,28 @@ import Footer from "../../components/Footer";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams, useNavigate } from "react-router-dom";
-import { useCartUpdate } from "../../hooks/CartUpdate";
+import { useCartUpdate } from "../../hooks/cartUpdate";
 
 export function Dish({ admin = false }) {
+  const { addCart } = useCartUpdate();
   const navigate = useNavigate();
   const params = useParams();
-  const addCart = useCartUpdate();
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [ingredients, setIngredients] = useState([]);
-  const [image, setImage] = useState("");
+  const [dish, setDish] = useState([]);
   const [qtd, setQtd] = useState(1);
 
   function handleAddCart() {
-    addCart(qtd, params.id, name, price);
+    addCart(qtd, params.id, dish.name, dish.price);
   }
 
   useEffect(() => {
-    async function loadDrinks() {
-      const { data } = await api.get(`dishes/dish/${params.id}`);
-
-      setName(data.name);
-      setDescription(data.description);
-      setPrice(data.price);
-      setIngredients(data.ingredients);
-      setImage(data.photo_url);
+    async function loadDish() {
+      const response = await api.get(`dishes/dish/${params.id}`);
+      setDish(response.data);
     }
 
-    loadDrinks();
-  }, [params]);
+    loadDish();
+  }, []);
 
   function handleToBack() {
     navigate(-1);
@@ -47,45 +38,48 @@ export function Dish({ admin = false }) {
   return (
     <Body>
       <Header />
-      <Main>
-        <Container>
-          <BackButton onClick={handleToBack}>
-            <PiCaretLeftBold />
-            Voltar
-          </BackButton>
-          <div className="dish-area">
-            <img
-              src={`${api.defaults.baseURL}/uploads/${image}` || ""}
-              alt=""
-            />
-            <div className="dish-info">
-              <h2>{name}</h2>
-              <p>{description}</p>
-              <div className="ingredients">
-                {ingredients &&
-                  ingredients.map((ingredient, index) => (
-                    <IngredientTag key={String(index)}>
-                      {ingredient}
-                    </IngredientTag>
-                  ))}
-              </div>
-              <div className="controls">
-                {admin ? (
-                  <AddButton title="Editar prato" />
-                ) : (
-                  <>
-                    <Stepper qtd={qtd} setQtd={setQtd} />
-                    <AddButton
-                      onClick={handleAddCart}
-                      title={`incluir ∙ R$ ${price}`}
-                    />
-                  </>
-                )}
+      {dish.id && (
+        <Main>
+          <Container>
+            <BackButton onClick={handleToBack}>
+              <PiCaretLeftBold />
+              Voltar
+            </BackButton>
+            <div className="dish-area">
+              <img
+                src={`${api.defaults.baseURL}/uploads/${dish.photo_url}` || ""}
+                alt=""
+              />
+              <div className="dish-info">
+                <h2>{dish.name}</h2>
+                <p>{dish.description}</p>
+                <div className="ingredients">
+                  {dish.ingredients &&
+                    dish.ingredients.map((ingredient, index) => (
+                      <IngredientTag key={String(index)}>
+                        {ingredient}
+                      </IngredientTag>
+                    ))}
+                </div>
+                <div className="controls">
+                  {admin ? (
+                    <AddButton title="Editar prato" />
+                  ) : (
+                    <>
+                      <Stepper qtd={qtd} setQtd={setQtd} />
+                      <AddButton
+                        onClick={handleAddCart}
+                        title={`incluir ∙ R$ ${dish.price}`}
+                      />
+                    </>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </Main>
+          </Container>
+        </Main>
+      )}
+
       <Footer />
     </Body>
   );
